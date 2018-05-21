@@ -13,6 +13,9 @@ namespace POExtractorPlus
 {
     public partial class Form1 : Form
     {
+        public Controller Controller { get; set; }
+        public string[] POFiles { get; set; }
+
         public Form1()
         {
             InitializeComponent();
@@ -23,6 +26,7 @@ namespace POExtractorPlus
         {
             string defaultDestination = Properties.Settings.Default.Destination;
             this.destinationTextBox.Text = defaultDestination;
+            this.Controller = new Controller();
         }
 
         private void OnBrowsingDestination(object sender, EventArgs e)
@@ -51,6 +55,7 @@ namespace POExtractorPlus
                 if (result == DialogResult.OK)
                 {
                     if (pfd.FileNames.Length > 0) {
+                        this.POFiles = pfd.FileNames;
                         SetSelectedFilesToListBox(pfd.FileNames);
                     }
                 }
@@ -66,6 +71,41 @@ namespace POExtractorPlus
             }
 
             this.allPOFilesListBox.DataSource = fileNamesOnly;
+        }
+
+        private void OnExtracting(object sender, EventArgs e)
+        {
+            if (ValidateForm()) {
+               List<string> rejectedFiles =  this.Controller.Extract(
+                accountTypeComboBox.Text,
+                this.POFiles,
+                destinationTextBox.Text);
+
+                this.rejectedPOFilesListBox.DataSource = rejectedFiles;
+            }
+        }
+
+        private bool ValidateForm()
+        {
+            bool validated = true;
+            string errorMessage = string.Empty;
+
+            if (accountTypeComboBox.SelectedItem == null) {
+                validated = false;
+                errorMessage = string.Format("{0} \n{1}", errorMessage, "The account type should be selected.");
+            }
+
+            if (this.POFiles == null || (this.POFiles != null && this.POFiles.Length == 0))
+            {
+                validated = false;
+                errorMessage = string.Format("{0} \n{1}", errorMessage, "At least one PO should be selected.");
+            }
+
+            if (!validated) {
+                MessageBox.Show(errorMessage);
+            }
+
+            return validated;
         }
     }
 }
