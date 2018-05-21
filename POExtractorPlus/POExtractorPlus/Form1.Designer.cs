@@ -32,7 +32,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.accountTypeComboBox = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.poFilesTextBox = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.destinationTextBox = new System.Windows.Forms.TextBox();
@@ -76,13 +76,13 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "PO Files";
             // 
-            // textBox1
+            // poFilesTextBox
             // 
-            this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(109, 42);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(331, 20);
-            this.textBox1.TabIndex = 3;
+            this.poFilesTextBox.Enabled = false;
+            this.poFilesTextBox.Location = new System.Drawing.Point(109, 42);
+            this.poFilesTextBox.Name = "poFilesTextBox";
+            this.poFilesTextBox.Size = new System.Drawing.Size(331, 20);
+            this.poFilesTextBox.TabIndex = 3;
             // 
             // button1
             // 
@@ -190,7 +190,7 @@
             this.Controls.Add(this.destinationTextBox);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.poFilesTextBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.accountTypeComboBox);
             this.Controls.Add(this.label1);
@@ -210,7 +210,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox accountTypeComboBox;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox poFilesTextBox;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox destinationTextBox;

@@ -56,6 +56,7 @@ namespace POExtractorPlus
                 {
                     if (pfd.FileNames.Length > 0) {
                         this.POFiles = pfd.FileNames;
+                        this.poFilesTextBox.Text = string.Join(",", pfd.FileNames);
                         SetSelectedFilesToListBox(pfd.FileNames);
                     }
                 }
