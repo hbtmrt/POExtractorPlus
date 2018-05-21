@@ -1,4 +1,5 @@
-﻿using System;
+﻿using POExtractorPlus.Accounts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,8 @@ namespace POExtractorPlus
     {
         public List<string> Extract(string accountType, string[] files, string destination)
         {
-            return new List<string>();
+            IAccount account = AccountFactory.Create(accountType);
+            return account.Extract(destination, files);
         }
     }
 }

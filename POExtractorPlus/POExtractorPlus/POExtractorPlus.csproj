@@ -44,6 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountFactory.cs" />
+    <Compile Include="Accounts\Brazil.cs" />
+    <Compile Include="Accounts\EUCanadaUsa.cs" />
+    <Compile Include="Accounts\IAccount.cs" />
+    <Compile Include="Accounts\LaclMexico.cs" />
     <Compile Include="Controller.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
