@@ -32,5 +32,18 @@ namespace POExtractorPlus.ExtractionBehavior
 
             return contents;
         }
+
+        public List<string> PossibleSizes { get; set; }
+
+        public Common() {
+            SetPossibleSizes();
+        }
+
+        private void SetPossibleSizes()
+        {
+            this.PossibleSizes = new List<string>();
+
+            this.PossibleSizes.Add("");
+        }
     }
 }

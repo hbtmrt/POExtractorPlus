@@ -24,6 +24,15 @@ namespace POExtractorPlus.ExtractionBehavior
             public const string PlannedDelDate = "Planned Del. Date";
             public const string TransMode = "Trans. Mode";
             public const string ScheduledLine = "Schedule Line";
+            public const string Product = "Product";
+            public const string ProductDescription = "Product Description";
+        }
+
+        public static class Brazil
+        {
+            public const string TotalPOQty = "TOTAL PO QUANTITY";
+            public const string TotalPOLineQty = "Total PO Qty";
+            public const string TransMode = "TRANS MODE";
         }
     }
 }

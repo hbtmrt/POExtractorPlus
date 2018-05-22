@@ -258,7 +258,7 @@ namespace POExtractorPlus.Accounts
                 }
             }
 
-            return "Not Found";
+            return "";
         }
 
         private string ExtractSeasonCode(PdfXmlMapper mapping)
@@ -282,7 +282,7 @@ namespace POExtractorPlus.Accounts
                 }
             }
 
-            return "Not Found";
+            return "";
         }
 
         private string ExtractManufacturer(PdfXmlMapper mapping)
@@ -306,7 +306,7 @@ namespace POExtractorPlus.Accounts
                 }
             }
 
-            return "Not Found";
+            return "";
         }
 
         private string ExtractMaterial(PdfXmlMapper mapping)
@@ -332,7 +332,7 @@ namespace POExtractorPlus.Accounts
                 }
             }
 
-            return "Not Found";
+            return "";
         }
 
         private string ExtractMaterialDescription(PdfXmlMapper mapping)
@@ -358,7 +358,7 @@ namespace POExtractorPlus.Accounts
                 }
             }
 
-            return "Not Found";
+            return "";
         }
 
         private string ExtractDeliveryAddress(PdfXmlMapper mapping)
@@ -384,7 +384,7 @@ namespace POExtractorPlus.Accounts
                 }
             }
 
-            return "Not Found";
+            return "";
         }
 
         private string ExtractPannedExFacDate(PdfXmlMapper mapping)
@@ -410,7 +410,7 @@ namespace POExtractorPlus.Accounts
                 }
             }
 
-            return "Not Found";
+            return "";
         }
 
         private string ExtractOriginalExFacDate(PdfXmlMapper mapping)
@@ -436,7 +436,7 @@ namespace POExtractorPlus.Accounts
                 }
             }
 
-            return "Not Found";
+            return "";
         }
 
         private string ExtractPOUnitPrice(PdfXmlMapper mapping)
@@ -462,7 +462,7 @@ namespace POExtractorPlus.Accounts
                 }
             }
 
-            return "Not Found";
+            return "";
         }
 
         private string ExtractTotalPOLineQty(PdfXmlMapper mapping)
@@ -488,7 +488,7 @@ namespace POExtractorPlus.Accounts
                 }
             }
 
-            return "Not Found";
+            return "";
         }
 
         private string ExtractPlannedDelDate(PdfXmlMapper mapping)
@@ -514,7 +514,7 @@ namespace POExtractorPlus.Accounts
                 }
             }
 
-            return "Not Found";
+            return "";
         }
 
         private string ExtractTransMode(PdfXmlMapper mapping)
@@ -540,7 +540,7 @@ namespace POExtractorPlus.Accounts
                 }
             }
 
-            return "Not Found";
+            return "";
         }
 
         private Dictionary<string, string> ExtractSizes(PdfXmlMapper mapping)
@@ -595,7 +595,7 @@ namespace POExtractorPlus.Accounts
                 }
             }
 
-            throw new Exception("Cannot find Sizes");
+            throw new Exception("Cannot find Sizes.");
         }
     }
 }
