@@ -82,7 +82,15 @@ namespace POExtractorPlus
                 this.POFiles,
                 destinationTextBox.Text);
 
-                this.rejectedPOFilesListBox.DataSource = rejectedFiles;
+                if (rejectedFiles.Count > 0) {
+                    if (this.Height != 405)
+                    {
+                        this.Height = 405;
+                        this.panel1.Visible = true;
+                    }
+
+                    this.rejectedPOFilesListBox.DataSource = rejectedFiles;
+                }
             }
         }
 

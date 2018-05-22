@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SautinSoft;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,28 @@ namespace POExtractorPlus.ExtractionBehavior
 {
     public class Common
     {
+        internal static Dictionary<string, string> GetFileContents(string[] files)
+        {
+            Dictionary<string, string> contents = new Dictionary<string, string>();
+
+            foreach (var file in files)
+            {
+                string content = string.Empty;
+
+                PdfFocus f = new PdfFocus();
+                f.XmlOptions.ConvertNonTabularDataToSpreadsheet = true;
+
+                f.OpenPdf(file);
+
+                if (f.PageCount > 0)
+                {
+                    content = f.ToXml();
+                }
+
+                contents.Add(file, content);
+            }
+
+            return contents;
+        }
     }
 }

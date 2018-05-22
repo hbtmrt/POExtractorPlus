@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.label1 = new System.Windows.Forms.Label();
             this.accountTypeComboBox = new System.Windows.Forms.ComboBox();
@@ -43,6 +44,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.rejectedPOFilesListBox = new System.Windows.Forms.ListBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.windowTooltip = new System.Windows.Forms.ToolTip(this.components);
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -221,6 +223,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ListBox rejectedPOFilesListBox;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ToolTip windowTooltip;
     }
 }
 
