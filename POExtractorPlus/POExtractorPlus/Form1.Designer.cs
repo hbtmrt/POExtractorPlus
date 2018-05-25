@@ -59,6 +59,7 @@
             // 
             // accountTypeComboBox
             // 
+            this.accountTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.accountTypeComboBox.FormattingEnabled = true;
             this.accountTypeComboBox.Items.AddRange(new object[] {
             "BRAZIL",

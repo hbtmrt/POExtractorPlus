@@ -29,7 +29,7 @@ namespace POExtractorPlus.Accounts
         public List<string> Extract(string destination, string[] files)
         {
             this.Destination = destination;
-            Dictionary<string, string> fileContents = Common.GetFileContents(files);
+            Dictionary<string, string> fileContents = Common.GetFileContents(files, Common.ExtractionTechnology.Sautin);
 
             foreach (var item in fileContents.ToList())
             {

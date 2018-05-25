@@ -34,5 +34,15 @@ namespace POExtractorPlus.ExtractionBehavior
             public const string TotalPOLineQty = "Total PO Qty";
             public const string TransMode = "TRANS MODE";
         }
+
+        public static class LaclMexico
+        {
+            public const string PONumber = "PO:";
+            public const string SeasonCode = "SEASON:";
+            public const string Manufacturer = "Plant Code:";
+            public const string Material = "PRODUCT CODE";
+            public const string ShipTo = "SHIP TO:";
+            public const string SellTo = "SELL TO:";
+        }
     }
 }
