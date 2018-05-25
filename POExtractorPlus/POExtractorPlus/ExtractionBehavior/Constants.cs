@@ -43,6 +43,8 @@ namespace POExtractorPlus.ExtractionBehavior
             public const string Material = "PRODUCT CODE";
             public const string ShipTo = "SHIP TO:";
             public const string SellTo = "SELL TO:";
+            public const string Size = "SIZE";
+            public const string Qty = "QTY";
         }
     }
 }

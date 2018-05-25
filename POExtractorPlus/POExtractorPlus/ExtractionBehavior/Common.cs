@@ -78,17 +78,37 @@ namespace POExtractorPlus.ExtractionBehavior
             return contents;
         }
 
-        public List<string> PossibleSizes { get; set; }
+        public static List<string> PossibleSizes { get; set; }
 
         public Common() {
-            SetPossibleSizes();
         }
 
-        private void SetPossibleSizes()
+        public static List<string> GetPossibleSizes()
         {
-            this.PossibleSizes = new List<string>();
+            var possibleSizes = new List<string>();
 
-            this.PossibleSizes.Add("");
+            possibleSizes.Add("XS");
+            possibleSizes.Add("S");
+            possibleSizes.Add("M");
+            possibleSizes.Add("L");
+            possibleSizes.Add("XL");
+            possibleSizes.Add("XXL");
+            possibleSizes.Add("ECH");
+            possibleSizes.Add("CH");
+            possibleSizes.Add("M");
+            possibleSizes.Add("G");
+            possibleSizes.Add("EG");
+            possibleSizes.Add("EEG");
+            possibleSizes.Add("85");
+            possibleSizes.Add("90");
+            possibleSizes.Add("95");
+            possibleSizes.Add("100");
+            possibleSizes.Add("105");
+            possibleSizes.Add("110");
+            possibleSizes.Add("80");
+            possibleSizes.Add("85");
+
+            return possibleSizes;
         }
     }
 }

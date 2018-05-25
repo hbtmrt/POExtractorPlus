@@ -76,6 +76,8 @@ namespace POExtractorPlus.Accounts
             ws.Cell("F1").Value = "Plan Ex-fty";
             ws.Cell("F1").Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
             ws.Cell("F1").Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+            //ws.Cell("F1").Style.NumberFormat.Format = "dd-mmm-yy";
+            ws.Column(6).Style.NumberFormat.Format = "dd-mmm-yy";
             ws.Range("F1:F2").Merge();
 
             ws.Cell("G1").Value = "Original Ex-fty";
@@ -354,7 +356,25 @@ namespace POExtractorPlus.Accounts
 
         private string ExtractPOUnitPrice(string[] lines)
         {
-            
+            for (int i = 0; i < lines.Length; i++)
+            {
+                string line = lines[i];
+                if (line.Contains(Constants.LaclMexico.Material))
+                {
+                    string dataLine = lines[i + 2];
+                    var splits1 = dataLine.Split(' ');
+
+                    for (int j = 0; j < splits1.Length; j++)
+                    {
+                        string splitItem = splits1[j];
+                        if (splitItem.Length > 8 && !IsNumeric(splitItem) && IsADate(splitItem, "dd-MMM-y"))
+                        {
+                            return splits1[j + 3];
+                        }
+                    }
+                }
+            }
+
             return "";
         }
 
@@ -446,7 +466,24 @@ namespace POExtractorPlus.Accounts
 
         private string ExtractTransMode(string[] lines)
         {
-            
+            for (int i = 0; i < lines.Length; i++)
+            {
+                string line = lines[i];
+                if (line.Contains(Constants.LaclMexico.Material))
+                {
+                    string dataLine = lines[i + 2];
+                    var splits1 = dataLine.Split(' ');
+
+                    for (int j = 0; j < splits1.Length; j++)
+                    {
+                        string splitItem = splits1[j];
+                        if (splitItem.Length > 8 && !IsNumeric(splitItem) && IsADate(splitItem, "dd-MMM-y"))
+                        {
+                            return splits1[j + 1];
+                        }
+                    }
+                }
+            }
 
             return "";
         }
@@ -455,9 +492,31 @@ namespace POExtractorPlus.Accounts
         {
             Dictionary<string, string> sizeModels = new Dictionary<string, string>();
 
-            
+            for (int i = 0; i < lines.Length; i++)
+            {
+                string line = lines[i];
+                if (line.Contains(Constants.LaclMexico.Size) && line.Contains(Constants.LaclMexico.Qty))
+                {
+                    for (int j = i + 1; j < lines.Length; j++)
+                    {
+                        string sizeLine = lines[j];
+                        var splits = sizeLine.Split(' ');
+                        if (splits.Length > 4)
+                        {
+                            bool isASize = Common.GetPossibleSizes().Contains(splits[0].Trim());
+                            bool isNumeric = IsNumeric(splits[1]);
+                            if (isASize && isNumeric)
+                            {
+                                sizeModels.Add(splits[0], splits[1]);
+                            }
+                        }
+                    }
 
-            throw new Exception("Cannot find Sizes.");
+                    break;
+                }
+            }
+
+            return sizeModels;
         }
     }
 }
