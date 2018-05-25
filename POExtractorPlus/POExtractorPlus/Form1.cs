@@ -19,7 +19,44 @@ namespace POExtractorPlus
         public Form1()
         {
             InitializeComponent();
+            backgroundWorker1.DoWork += BackgroundWorker1_DoWork;
+            backgroundWorker1.RunWorkerCompleted += BackgroundWorker1_RunWorkerCompleted;
+
             Init();
+        }
+
+        private void BackgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            progressBar1.Visible = false;
+
+            button1.Enabled = true;
+            button2.Enabled = true;
+            button3.Enabled = true;
+        }
+
+        private void BackgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            this.Invoke(new MethodInvoker(delegate ()
+            {
+                if (ValidateForm())
+                {
+                    List<string> rejectedFiles = this.Controller.Extract(
+                     accountTypeComboBox.Text,
+                     this.POFiles,
+                     destinationTextBox.Text);
+
+                    if (rejectedFiles.Count > 0)
+                    {
+                        if (this.Height != 405)
+                        {
+                            this.Height = 405;
+                            this.panel1.Visible = true;
+                        }
+
+                        this.rejectedPOFilesListBox.DataSource = rejectedFiles;
+                    }
+                }
+            }));
         }
 
         private void Init()
@@ -54,7 +91,8 @@ namespace POExtractorPlus
 
                 if (result == DialogResult.OK)
                 {
-                    if (pfd.FileNames.Length > 0) {
+                    if (pfd.FileNames.Length > 0)
+                    {
                         this.POFiles = pfd.FileNames;
                         this.poFilesTextBox.Text = string.Join(",", pfd.FileNames);
                         SetSelectedFilesToListBox(pfd.FileNames);
@@ -76,22 +114,13 @@ namespace POExtractorPlus
 
         private void OnExtracting(object sender, EventArgs e)
         {
-            if (ValidateForm()) {
-               List<string> rejectedFiles =  this.Controller.Extract(
-                accountTypeComboBox.Text,
-                this.POFiles,
-                destinationTextBox.Text);
+            progressBar1.Visible = true;
+            progressBar1.Style = ProgressBarStyle.Marquee;
 
-                if (rejectedFiles.Count > 0) {
-                    if (this.Height != 405)
-                    {
-                        this.Height = 405;
-                        this.panel1.Visible = true;
-                    }
-
-                    this.rejectedPOFilesListBox.DataSource = rejectedFiles;
-                }
-            }
+            button1.Enabled = false;
+            button2.Enabled = false;
+            button3.Enabled = false;
+            backgroundWorker1.RunWorkerAsync();
         }
 
         private bool ValidateForm()
@@ -99,7 +128,8 @@ namespace POExtractorPlus
             bool validated = true;
             string errorMessage = string.Empty;
 
-            if (accountTypeComboBox.SelectedItem == null) {
+            if (accountTypeComboBox.SelectedItem == null)
+            {
                 validated = false;
                 errorMessage = string.Format("{0} \n{1}", errorMessage, "The account type should be selected.");
             }
@@ -110,7 +140,8 @@ namespace POExtractorPlus
                 errorMessage = string.Format("{0} \n{1}", errorMessage, "At least one PO should be selected.");
             }
 
-            if (!validated) {
+            if (!validated)
+            {
                 MessageBox.Show(errorMessage);
             }
 
