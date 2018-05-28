@@ -47,6 +47,7 @@
             this.windowTooltip = new System.Windows.Forms.ToolTip(this.components);
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.trailVersionTextBox = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -191,11 +192,23 @@
             this.progressBar1.Value = 30;
             this.progressBar1.Visible = false;
             // 
+            // trailVersionTextBox
+            // 
+            this.trailVersionTextBox.AutoSize = true;
+            this.trailVersionTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.trailVersionTextBox.ForeColor = System.Drawing.Color.Red;
+            this.trailVersionTextBox.Location = new System.Drawing.Point(106, 122);
+            this.trailVersionTextBox.Name = "trailVersionTextBox";
+            this.trailVersionTextBox.Size = new System.Drawing.Size(96, 17);
+            this.trailVersionTextBox.TabIndex = 15;
+            this.trailVersionTextBox.Text = "Trial Version. ";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(547, 251);
+            this.Controls.Add(this.trailVersionTextBox);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label4);
@@ -239,6 +252,7 @@
         private System.Windows.Forms.ToolTip windowTooltip;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.Label trailVersionTextBox;
     }
 }
 

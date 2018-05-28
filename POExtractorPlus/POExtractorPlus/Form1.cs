@@ -64,6 +64,21 @@ namespace POExtractorPlus
             string defaultDestination = Properties.Settings.Default.Destination;
             this.destinationTextBox.Text = defaultDestination;
             this.Controller = new Controller();
+
+            CheckTrialPeriod();
+        }
+
+        private void CheckTrialPeriod() {
+            DateTime dt = new DateTime(2018, 6, 8);
+            if (DateTime.Now > dt) {
+                trailVersionTextBox.Text = "Expired. Please contact the administrator.";
+                button3.Enabled = false;
+            }
+            else
+            {
+                var remainingDays = (dt - DateTime.Now).Days;
+                trailVersionTextBox.Text = string.Format("Trail Version. Expire in {0} days.", remainingDays);
+            }
         }
 
         private void OnBrowsingDestination(object sender, EventArgs e)
