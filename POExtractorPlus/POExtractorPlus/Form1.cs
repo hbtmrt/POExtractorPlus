@@ -66,7 +66,7 @@ namespace POExtractorPlus
             this.destinationTextBox.Text = defaultDestination;
             this.Controller = new Controller();
 
-            CheckTrialPeriod();
+            CheckTrialPeriodAtFirstTime();
             SetTrialPeriodTimer();
         }
 
@@ -77,8 +77,10 @@ namespace POExtractorPlus
         }
 
         private void CheckTrailPeriod() {
+            //CheckTrialPeriod();
             System.Timers.Timer timer = new System.Timers.Timer();
-            timer.Interval = 43200000;
+           // timer.Interval = 43200000;
+            timer.Interval = 10000;
             timer.Elapsed += Timer_Elapsed;
             timer.Start();
         }
@@ -89,15 +91,46 @@ namespace POExtractorPlus
         }
 
         private void CheckTrialPeriod() {
+            this.Invoke(new MethodInvoker(delegate ()
+            {
+                DateTime dt = new DateTime(2018, 6, 8);
+                if (DateTime.Now > dt)
+                {
+                    trailVersionTextBox.Text = "Expired. Please contact the administrator.";
+                    button3.Enabled = false;
+                }
+                else
+                {
+                    var remainingDays = (dt - DateTime.Now).Days;
+                    string text = string.Format("Trail Version. Expire in {0} days.", remainingDays);
+                    if (remainingDays == 0)
+                    {
+                        text = "Trail Version. Expire today.";
+                    }
+
+                    trailVersionTextBox.Text = text;
+                }
+            }));
+        }
+
+        private void CheckTrialPeriodAtFirstTime()
+        {
             DateTime dt = new DateTime(2018, 6, 8);
-            if (DateTime.Now > dt) {
+            if (DateTime.Now > dt)
+            {
                 trailVersionTextBox.Text = "Expired. Please contact the administrator.";
                 button3.Enabled = false;
             }
             else
             {
                 var remainingDays = (dt - DateTime.Now).Days;
-                trailVersionTextBox.Text = string.Format("Trail Version. Expire in {0} days.", remainingDays);
+                string text = string.Format("Trail Version. Expire in {0} days.", remainingDays);
+                if (remainingDays == 0)
+                {
+                    text = "Trail Version. Expire today.";
+                }
+
+                trailVersionTextBox.Text = text;
             }
         }
 
