@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -65,6 +66,25 @@ namespace POExtractorPlus
             this.destinationTextBox.Text = defaultDestination;
             this.Controller = new Controller();
 
+            CheckTrialPeriod();
+            SetTrialPeriodTimer();
+        }
+
+        private void SetTrialPeriodTimer()
+        {
+            Thread timerThread = new Thread(CheckTrailPeriod);
+            timerThread.Start();
+        }
+
+        private void CheckTrailPeriod() {
+            System.Timers.Timer timer = new System.Timers.Timer();
+            timer.Interval = 5000;
+            timer.Elapsed += Timer_Elapsed;
+            timer.Start();
+        }
+
+        private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
             CheckTrialPeriod();
         }
 
