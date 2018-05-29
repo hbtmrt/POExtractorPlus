@@ -78,7 +78,7 @@ namespace POExtractorPlus
 
         private void CheckTrailPeriod() {
             System.Timers.Timer timer = new System.Timers.Timer();
-            timer.Interval = 5000;
+            timer.Interval = 43200000;
             timer.Elapsed += Timer_Elapsed;
             timer.Start();
         }
