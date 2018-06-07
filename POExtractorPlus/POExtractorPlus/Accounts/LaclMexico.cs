@@ -212,7 +212,7 @@ namespace POExtractorPlus.Accounts
                     model.SeasonCode = ExtractSeasonCode(lines);
                     model.Manufacturer = ExtractManufacturer(lines);
                     model.Material = ExtractMaterial(lines);
-                    //model.MaterialDescription = ExtractMaterialDescription(lines);
+                    model.MaterialDescription = ExtractMaterialDescription(lines);
                     model.Plan_ExFTY = ExtractPlannedDelDate(lines);
                     model.Original_ExFTY = "";
                     model.TotalPOQty = ExtractTotalPOLineQty(lines);
@@ -316,7 +316,27 @@ namespace POExtractorPlus.Accounts
 
         private string ExtractMaterialDescription(string[] lines)
         {
-            
+            for (int i = 0; i < lines.Length; i++)
+            {
+                string line = lines[i];
+                if (line.Contains(Constants.LaclMexico.MaterialDescription))
+                {
+                    string dataLine = lines[i + 2];
+                    var splits1 = dataLine.Split(' ');
+                    string description = string.Empty;
+
+                    for (int j = 1; j < splits1.Length; j++)
+                    {
+                        if (!IsNumeric(splits1[j])) {
+                            description = string.Format("{0} {1}", description, splits1[j]);
+                        }
+                        else
+                        {
+                            return description;
+                        }
+                    }
+                }
+            }
 
             return "";
         }
@@ -427,8 +447,6 @@ namespace POExtractorPlus.Accounts
         private bool IsNumeric(string splitItem)
         {
             bool isNumeric = false;
-
-            
 
             if (!string.IsNullOrEmpty(splitItem))
             {

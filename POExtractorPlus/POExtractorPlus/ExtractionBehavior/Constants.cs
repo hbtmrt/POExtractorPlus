@@ -41,6 +41,7 @@ namespace POExtractorPlus.ExtractionBehavior
             public const string SeasonCode = "SEASON:";
             public const string Manufacturer = "Plant Code:";
             public const string Material = "PRODUCT CODE";
+            public const string MaterialDescription = "DESCRIPTION";
             public const string ShipTo = "SHIP TO:";
             public const string SellTo = "SELL TO:";
             public const string Size = "SIZE";
