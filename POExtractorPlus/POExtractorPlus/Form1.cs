@@ -62,7 +62,7 @@ namespace POExtractorPlus
 
         private void Init()
         {
-            string defaultDestination = Properties.Settings.Default.Destination;
+            string defaultDestination = string.Format(@"{0}\{1}", Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "PO Plus Docs");
             this.destinationTextBox.Text = defaultDestination;
             this.Controller = new Controller();
 
@@ -93,7 +93,7 @@ namespace POExtractorPlus
         private void CheckTrialPeriod() {
             this.Invoke(new MethodInvoker(delegate ()
             {
-                DateTime dt = new DateTime(2018, 6, 8);
+                DateTime dt = new DateTime(2018, 7, 23);
                 if (DateTime.Now > dt)
                 {
                     trailVersionTextBox.Text = "Expired. Please contact the administrator.";
@@ -115,7 +115,7 @@ namespace POExtractorPlus
 
         private void CheckTrialPeriodAtFirstTime()
         {
-            DateTime dt = new DateTime(2018, 6, 8);
+            DateTime dt = new DateTime(2018, 7, 23);
             if (DateTime.Now > dt)
             {
                 trailVersionTextBox.Text = "Expired. Please contact the administrator.";
@@ -161,6 +161,11 @@ namespace POExtractorPlus
                 {
                     if (pfd.FileNames.Length > 0)
                     {
+                        if (pfd.FileNames.Length > 3)
+                        {
+                            MessageBox.Show("You can select at most 3 files in the trial version.");
+                        }
+
                         this.POFiles = pfd.FileNames;
                         this.poFilesTextBox.Text = string.Join(",", pfd.FileNames);
                         SetSelectedFilesToListBox(pfd.FileNames);
