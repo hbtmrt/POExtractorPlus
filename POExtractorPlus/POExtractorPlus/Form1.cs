@@ -17,9 +17,12 @@ namespace POExtractorPlus
         public Controller Controller { get; set; }
         public string[] POFiles { get; set; }
 
+        private bool IsLicenced { get; set; }
+
         public Form1()
         {
             InitializeComponent();
+            IsLicenced = false;
             backgroundWorker1.DoWork += BackgroundWorker1_DoWork;
             backgroundWorker1.RunWorkerCompleted += BackgroundWorker1_RunWorkerCompleted;
 
@@ -93,14 +96,16 @@ namespace POExtractorPlus
         private void CheckTrialPeriod() {
             this.Invoke(new MethodInvoker(delegate ()
             {
-                DateTime dt = new DateTime(2018, 7, 23);
+                DateTime dt = new DateTime(2018, 7, 25);
                 if (DateTime.Now > dt)
                 {
+                    IsLicenced = false;
                     trailVersionTextBox.Text = "Expired. Please contact the administrator.";
                     button3.Enabled = false;
                 }
                 else
                 {
+                    IsLicenced = true;
                     var remainingDays = (dt - DateTime.Now).Days;
                     string text = string.Format("Trail Version. Expire in {0} days.", remainingDays);
                     if (remainingDays == 0)
@@ -115,14 +120,16 @@ namespace POExtractorPlus
 
         private void CheckTrialPeriodAtFirstTime()
         {
-            DateTime dt = new DateTime(2018, 7, 23);
+            DateTime dt = new DateTime(2018, 7, 25);
             if (DateTime.Now > dt)
             {
+                IsLicenced = false;
                 trailVersionTextBox.Text = "Expired. Please contact the administrator.";
                 button3.Enabled = false;
             }
             else
             {
+                IsLicenced = true;
                 var remainingDays = (dt - DateTime.Now).Days;
                 string text = string.Format("Trail Version. Expire in {0} days.", remainingDays);
                 if (remainingDays == 0)
@@ -161,9 +168,12 @@ namespace POExtractorPlus
                 {
                     if (pfd.FileNames.Length > 0)
                     {
-                        if (pfd.FileNames.Length > 3)
+                        if (!IsLicenced && pfd.FileNames.Length > 3)
                         {
                             MessageBox.Show("You can select at most 3 files in the trial version.");
+                            this.poFilesTextBox.Text = "";
+                            SetSelectedFilesToListBox(null);
+                            return;
                         }
 
                         this.POFiles = pfd.FileNames;
@@ -176,10 +186,15 @@ namespace POExtractorPlus
 
         private void SetSelectedFilesToListBox(string[] files)
         {
-            string[] fileNamesOnly = new string[files.Length];
-            for (int i = 0; i < files.Length; i++)
-            {
-                fileNamesOnly[i] = Path.GetFileName(files[0]);
+            //string[] fileNamesOnly = new string[files.Length];
+            List<string> fileNamesOnly = new List<string>();
+
+            if (files != null) {
+                for (int i = 0; i < files.Length; i++)
+                {
+                    fileNamesOnly.Add(Path.GetFileName(files[0]));
+                    //fileNamesOnly[i] = Path.GetFileName(files[0]);
+                }
             }
 
             this.allPOFilesListBox.DataSource = fileNamesOnly;

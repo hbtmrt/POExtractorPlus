@@ -519,7 +519,7 @@ namespace POExtractorPlus.Accounts
                     {
                         string sizeLine = lines[j];
                         var splits = sizeLine.Split(' ');
-                        if (splits.Length > 4)
+                        if (splits.Length > 2)
                         {
                             bool isASize = Common.GetPossibleSizes().Contains(splits[0].Trim());
                             bool isNumeric = IsNumeric(splits[1]);
