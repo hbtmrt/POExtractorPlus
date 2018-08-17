@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -79,10 +80,11 @@ namespace POExtractorPlus
             timerThread.Start();
         }
 
-        private void CheckTrailPeriod() {
+        private void CheckTrailPeriod()
+        {
             //CheckTrialPeriod();
             System.Timers.Timer timer = new System.Timers.Timer();
-           // timer.Interval = 43200000;
+            // timer.Interval = 43200000;
             timer.Interval = 10000;
             timer.Elapsed += Timer_Elapsed;
             timer.Start();
@@ -93,11 +95,117 @@ namespace POExtractorPlus
             CheckTrialPeriod();
         }
 
-        private void CheckTrialPeriod() {
+        private void CheckTrialPeriod()
+        {
             this.Invoke(new MethodInvoker(delegate ()
             {
-                DateTime dt = new DateTime(2018, 7, 25);
-                if (DateTime.Now > dt)
+                //DateTime dt = new DateTime(2018, 7, 25);
+                //if (DateTime.Now > dt)
+                //{
+                //    IsLicenced = false;
+                //    trailVersionTextBox.Text = "Expired. Please contact the administrator.";
+                //    button3.Enabled = false;
+                //}
+                //else
+                //{
+                //    IsLicenced = true;
+                //    var remainingDays = (dt - DateTime.Now).Days;
+                //    string text = string.Format("Trail Version. Expire in {0} days.", remainingDays);
+                //    if (remainingDays == 0)
+                //    {
+                //        text = "Trail Version. Expire today.";
+                //    }
+
+                //    trailVersionTextBox.Text = text;
+                //}
+
+                if (CheckForInternetConnection())
+                {
+                    string jsonString = new WebClient().DownloadString("https://raw.githubusercontent.com/hbtmrt/POExtractorPlus/master/POExtractorPlus/onlinedata.json");
+                    bool isForceExpire = jsonString.Contains("true");
+
+                    if (isForceExpire)
+                    {
+                        IsLicenced = false;
+                        trailVersionTextBox.Text = "Expired. Please contact the administrator.";
+                        button3.Enabled = false;
+                    }
+                    else
+                    {
+                        DateTime dt = new DateTime(2018, 8, 18);
+                        if (DateTime.Now > dt)
+                        {
+                            IsLicenced = false;
+                            trailVersionTextBox.Text = "Expired. Please contact the administrator.";
+                            button3.Enabled = false;
+                        }
+                        else
+                        {
+                            IsLicenced = true;
+                            var remainingDays = (dt - DateTime.Now).Days;
+                            string text = string.Format("Trail Version. Expire in {0} days.", remainingDays);
+                            if (remainingDays == 0)
+                            {
+                                text = "Trail Version. Expire today.";
+                            }
+                            button3.Enabled = true;
+                            trailVersionTextBox.Text = text;
+                        }
+                    }
+                }
+                else
+                {
+                    IsLicenced = false;
+                    trailVersionTextBox.Text = "Please connect to the internet";
+                    button3.Enabled = false;
+                }
+            }));
+        }
+
+        private static bool CheckForInternetConnection()
+        {
+            try
+            {
+                using (var client = new WebClient())
+                using (client.OpenRead("http://clients3.google.com/generate_204"))
+                {
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private void CheckTrialPeriodAtFirstTime()
+        {
+            //DateTime dt = new DateTime(2018, 7, 25);
+            //if (DateTime.Now > dt)
+            //{
+            //    IsLicenced = false;
+            //    trailVersionTextBox.Text = "Expired. Please contact the administrator.";
+            //    button3.Enabled = false;
+            //}
+            //else
+            //{
+            //    IsLicenced = true;
+            //    var remainingDays = (dt - DateTime.Now).Days;
+            //    string text = string.Format("Trail Version. Expire in {0} days.", remainingDays);
+            //    if (remainingDays == 0)
+            //    {
+            //        text = "Trail Version. Expire today.";
+            //    }
+
+            //    trailVersionTextBox.Text = text;
+            //}
+
+            if (CheckForInternetConnection())
+            {
+                string jsonString = new WebClient().DownloadString("https://raw.githubusercontent.com/hbtmrt/POExtractorPlus/master/POExtractorPlus/onlinedata.json");
+                bool isForceExpire = jsonString.Contains("true");
+
+                if (isForceExpire)
                 {
                     IsLicenced = false;
                     trailVersionTextBox.Text = "Expired. Please contact the administrator.";
@@ -105,39 +213,32 @@ namespace POExtractorPlus
                 }
                 else
                 {
-                    IsLicenced = true;
-                    var remainingDays = (dt - DateTime.Now).Days;
-                    string text = string.Format("Trail Version. Expire in {0} days.", remainingDays);
-                    if (remainingDays == 0)
+                    DateTime dt = new DateTime(2018, 8, 18);
+                    if (DateTime.Now > dt)
                     {
-                        text = "Trail Version. Expire today.";
+                        IsLicenced = false;
+                        trailVersionTextBox.Text = "Expired. Please contact the administrator.";
+                        button3.Enabled = false;
                     }
-
-                    trailVersionTextBox.Text = text;
+                    else
+                    {
+                        IsLicenced = true;
+                        var remainingDays = (dt - DateTime.Now).Days;
+                        string text = string.Format("Trail Version. Expire in {0} days.", remainingDays);
+                        if (remainingDays == 0)
+                        {
+                            text = "Trail Version. Expire today.";
+                        }
+                        button3.Enabled = true;
+                        trailVersionTextBox.Text = text;
+                    }
                 }
-            }));
-        }
-
-        private void CheckTrialPeriodAtFirstTime()
-        {
-            DateTime dt = new DateTime(2018, 7, 25);
-            if (DateTime.Now > dt)
-            {
-                IsLicenced = false;
-                trailVersionTextBox.Text = "Expired. Please contact the administrator.";
-                button3.Enabled = false;
             }
             else
             {
-                IsLicenced = true;
-                var remainingDays = (dt - DateTime.Now).Days;
-                string text = string.Format("Trail Version. Expire in {0} days.", remainingDays);
-                if (remainingDays == 0)
-                {
-                    text = "Trail Version. Expire today.";
-                }
-
-                trailVersionTextBox.Text = text;
+                IsLicenced = false;
+                trailVersionTextBox.Text = "Please connect to the internet";
+                button3.Enabled = false;
             }
         }
 
@@ -189,7 +290,8 @@ namespace POExtractorPlus
             //string[] fileNamesOnly = new string[files.Length];
             List<string> fileNamesOnly = new List<string>();
 
-            if (files != null) {
+            if (files != null)
+            {
                 for (int i = 0; i < files.Length; i++)
                 {
                     fileNamesOnly.Add(Path.GetFileName(files[0]));
