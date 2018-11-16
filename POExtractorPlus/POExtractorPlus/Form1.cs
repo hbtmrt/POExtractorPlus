@@ -20,10 +20,14 @@ namespace POExtractorPlus
 
         private bool IsLicenced { get; set; }
 
+        private DateTime MyExpireDate { get; set; }
+
         public Form1()
         {
             InitializeComponent();
-            IsLicenced = false;
+            //IsLicenced = false;
+            IsLicenced = true;
+            MyExpireDate = new DateTime(2018, 8, 22);
             backgroundWorker1.DoWork += BackgroundWorker1_DoWork;
             backgroundWorker1.RunWorkerCompleted += BackgroundWorker1_RunWorkerCompleted;
 
@@ -70,8 +74,8 @@ namespace POExtractorPlus
             this.destinationTextBox.Text = defaultDestination;
             this.Controller = new Controller();
 
-            CheckTrialPeriodAtFirstTime();
-            SetTrialPeriodTimer();
+            //CheckTrialPeriodAtFirstTime();
+            //SetTrialPeriodTimer();
         }
 
         private void SetTrialPeriodTimer()
@@ -82,9 +86,7 @@ namespace POExtractorPlus
 
         private void CheckTrailPeriod()
         {
-            //CheckTrialPeriod();
             System.Timers.Timer timer = new System.Timers.Timer();
-            // timer.Interval = 43200000;
             timer.Interval = 10000;
             timer.Elapsed += Timer_Elapsed;
             timer.Start();
@@ -132,7 +134,7 @@ namespace POExtractorPlus
                     }
                     else
                     {
-                        DateTime dt = new DateTime(2018, 8, 18);
+                        DateTime dt = MyExpireDate;
                         if (DateTime.Now > dt)
                         {
                             IsLicenced = false;
@@ -213,7 +215,7 @@ namespace POExtractorPlus
                 }
                 else
                 {
-                    DateTime dt = new DateTime(2018, 8, 18);
+                    DateTime dt = MyExpireDate;
                     if (DateTime.Now > dt)
                     {
                         IsLicenced = false;

@@ -523,20 +523,23 @@ namespace POExtractorPlus.Accounts
             {
                 foreach (var table in page.Tables)
                 {
-                    for (int i = 0; i < table.Rows.Count; i++)
-                    {
-                        var row = table.Rows[i];
-
-                        for (int j = 0; j < row.Cells.Count; j++)
+                    if (table.Rows.Count > 1) {
+                        for (int i = 0; i < table.Rows.Count; i++)
                         {
-                            var cell = row.Cells[j];
-                            if (cell.Equals(Constants.Common.TransMode))
+                            var row = table.Rows[i];
+
+                            for (int j = 0; j < row.Cells.Count; j++)
                             {
-                                var nextRow = table.Rows[i + 1];
-                                return nextRow.Cells[j];
+                                var cell = row.Cells[j];
+                                if (cell.Equals(Constants.Common.TransMode))
+                                {
+                                    var nextRow = table.Rows[i + 1];
+                                    return nextRow.Cells[j];
+                                }
                             }
                         }
                     }
+                    
                 }
             }
 
